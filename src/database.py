@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pymysql
 import Error
 __author__ = '''
@@ -26,17 +25,27 @@ class DB(object):
                 raise Error.DatabaseNameError(e.args[1])
             else:
                 raise Error.ConnectDatabaseError(e)
-       # except Exception as e:
-        #    raise Error.UnknownError(e)
+        except Exception as e:
+           raise Error.UnknownError(e)
         return db
 
-    def select(self,title,table):
+    def select(self,table,title):
         db = self.__get_db()
         cursor = db.cursor()
-        cursor.execute("SELECT * FROM  %s "
-                    "WHERE `title` = %s ", (table,title))
-        db.close()
-        return cursor.fetchall()#返回全部匹配的值，以二维元祖的方式
+        if table==0:
+            cursor.execute("""
+            SELECT * FROM video
+            WHERE title = %s 
+            """, (title))
+            db.close()
+            return cursor.fetchall()#返回全部匹配的值，以二维元祖的方式
+        if table==1:
+            cursor.execute("""
+            SELECT * FROM video
+            WHERE title = %s 
+            """, (title))
+            db.close()
+            return cursor.fetchall()#返回全部匹配的值，以二维元祖的方式    
 
     def write_video(self, title, keywords, desc, img, url, is_vip, pv, status, add_time, score):
         db = self.__get_db()
