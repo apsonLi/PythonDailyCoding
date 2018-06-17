@@ -31,7 +31,7 @@ def bstask(html):
             score = 0 
             status = 0
             add_time = (int)(time.time())
-            print(title, keywords, desc, img, url, is_vip, pv, status, add_time, score)
+            #print(title, keywords, desc, img, url, is_vip, pv, status, add_time, score)
             db.write_video(title, keywords, desc, img, url, is_vip, pv, status, add_time, score)#存入数据库
        
 
